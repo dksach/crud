@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form Table Example</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Form Table Example</h1>
+	<form id="myForm">
+		<label for="name">Name:</label>
+		<input type="text" id="name" name="name"><br><br>
+		<label for="age">Age:</label>
+		<input type="number" id="age" name="age"><br><br>
+		<input type="submit" value="Submit">
+	</form>
+	<br>
+	<table id="myTable">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<script>
+		const form = document.getElementById("myForm");
+		const tableBody = document.querySelector("#myTable tbody");
+
+		form.addEventListener("submit", function(event) {
+			event.preventDefault(); // prevent form submission
+
+			// get the values from the form
+			const name = document.getElementById("name").value;
+			const age = document.getElementById("age").value;
+
+			// create a new row in the table
+			const newRow = tableBody.insertRow();
+			const nameCell = newRow.insertCell();
+			const ageCell = newRow.insertCell();
+			const deleteCell = newRow.insertCell();
+
+			// add the values to the row
+			nameCell.textContent = name;
+			ageCell.textContent = age;
+
+			// add a delete button to the row
+			const deleteButton = document.createElement("button");
+			deleteButton.textContent = "Delete";
+			deleteCell.appendChild(deleteButton);
+
+			// add a click event listener to the delete button
+			deleteButton.addEventListener("click", function() {
+				tableBody.deleteRow(newRow.rowIndex);
+			});
+
+			// clear the form
+			form.reset();
+		});
+	</script>
+</body>
+</html>
